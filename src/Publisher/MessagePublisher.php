@@ -16,7 +16,6 @@ use Vehis\Msc\Message\Message;
 final readonly class MessagePublisher
 {
     public function __construct(
-        private string $publisherName,
         private MessageBusInterface $bus,
         private RoutingKeyGenerator $routingKeyGenerator,
     ) {
@@ -28,7 +27,8 @@ final readonly class MessagePublisher
     public function publish(Message $message): void
     {
         try {
-            $routingKey = $message->getRoutingKey() ?? $this->routingKeyGenerator->generateKey($message::class, $this->publisherName);
+            $routingKey = $this->routingKeyGenerator->decorateKey($message->getRoutingKey())
+                ?? $this->routingKeyGenerator->generateKey($message::class);
         } catch (CannotGenerateRoutingKeyException $e) {
             throw new PublishingMessageFailed('Unable to get the routing key for requested event', previous: $e);
         }

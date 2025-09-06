@@ -8,12 +8,17 @@ use ReflectionClass;
 use ReflectionException;
 use Vehis\Msc\Exception\CannotGenerateRoutingKeyException;
 
-class RoutingKeyGenerator
+readonly class RoutingKeyGenerator
 {
+    public function __construct(
+        private string $publisherName,
+    ) {
+    }
+
     /**
      * @throws CannotGenerateRoutingKeyException
      */
-    public function generateKey(string $className, ?string $publisherName = null): string
+    public function generateKey(string $className): string
     {
         try {
             $shortName = (new ReflectionClass($className))->getShortName();
@@ -23,11 +28,13 @@ class RoutingKeyGenerator
 
         $words = preg_split('/(?=[A-Z])/', $shortName, -1, PREG_SPLIT_NO_EMPTY);
         $words = array_map('strtolower', $words);
+        $key = implode('.', $words);
 
-        if ($publisherName) {
-            array_unshift($words, $publisherName);
-        }
+        return $this->decorateKey($key);
+    }
 
-        return implode('.', $words);
+    public function decorateKey(string $key): string
+    {
+        return sprintf('%s.%s', $this->publisherName, $key);
     }
 }

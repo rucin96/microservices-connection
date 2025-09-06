@@ -10,6 +10,6 @@ services:
   Vehis\Msc\Publisher\:
     resource: '../../Publisher/'
 
-  Vehis\Msc\Publisher\MessagePublisher:
+  Vehis\Msc\Generator\RoutingKeyGenerator:
     arguments:
       $publisherName: '%msc.publisher_name%'
