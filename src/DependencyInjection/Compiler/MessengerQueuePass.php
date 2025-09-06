@@ -66,14 +66,13 @@ class MessengerQueuePass implements CompilerPassInterface
 
             if (!isset($transport['options']['queues'])) {
                 $transport['options']['queues'] = $queues;
-
-                return $messengerConfig;
+                continue;
             }
 
             $existingQueues = $transport['options']['queues'];
             $transport['options']['queues'] = array_merge(array_unique($queues, $existingQueues));
         }
-
+        error_log(json_encode($messengerConfig));
         return $messengerConfig;
     }
 
