@@ -18,7 +18,7 @@ class MscExtension extends Extension
 
         // Set parameters for use in services
         $container->setParameter('msc.publisher_name', $config['publisher_name']);
-        $container->setParameter('msc.queues', $config['queues']);
+        $container->setParameter('msc.queue', $config['queue']);
 
         // Load services
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));

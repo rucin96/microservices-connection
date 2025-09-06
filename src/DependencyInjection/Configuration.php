@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('%env(MSC_NAME)%')
                     ->info('Service name will be added to each message as it prefix')
                 ->end()
-                ->arrayNode('queues')
+                ->arrayNode('queue')
                     ->info('Queue configurations for AMQP transports')
                     ->useAttributeAsKey('name')
                     ->arrayPrototype()
