@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vehis\MsC\Message;
+namespace Vehis\Msc\Message;
 
 use DateTimeImmutable;
 

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Vehis\MsC\Exception;
+namespace Vehis\Msc\Exception;
 
-class PublishingMessageFailed extends MsCException
+class PublishingMessageFailed extends MscException
 {
 }
