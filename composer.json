@@ -1,0 +1,21 @@
+{
+    "name": "vehis/msc",
+    "description": "Asynchronous communication package for microservices",
+    "type": "library",
+    "require": {
+        "symfony/messenger": "^7.3",
+        "symfony/amqp-messenger": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vehis\\Msc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marcin Ruciński",
+            "email": "mrucinski@vehis.pl"
+        }
+    ],
+    "minimum-stability": "stable"
+}
