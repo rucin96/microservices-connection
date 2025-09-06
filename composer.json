@@ -1,5 +1,5 @@
 {
-    "name": "vehis/msc",
+    "name": "rucin96/microservices-connection",
     "description": "Asynchronous communication package for microservices",
     "type": "library",
     "require": {
