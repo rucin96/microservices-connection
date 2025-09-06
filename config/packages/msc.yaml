@@ -4,7 +4,7 @@ msc:
   # Put topics that you are interested in,
   # For ex.
   #
-  # topics:
+  # binding_keys:
   #     - 'orders.*'
   #     - 'payments.*'
-  topics:
+  binding_keys:

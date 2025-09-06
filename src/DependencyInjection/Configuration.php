@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
             ->defaultValue('%env(MSC_NAME)%')
             ->info('Service name will be added to each message as it prefix')
             ->end()
-            ->arrayNode('topics')
+            ->arrayNode('binding_keys')
             ->info('Put topics that you are interested in')
             ->example(['orders.*', 'payments.*'])
             ->prototype('scalar')->end()

@@ -7,6 +7,7 @@ namespace Vehis\Msc;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Vehis\Msc\DependencyInjection\Compiler\MessengerBindingPass;
 use Vehis\Msc\DependencyInjection\MscExtension;
 
 class MscBundle extends Bundle
@@ -23,5 +24,7 @@ class MscBundle extends Bundle
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
+
+        $container->addCompilerPass(new MessengerBindingPass());
     }
 }
