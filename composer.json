@@ -4,9 +4,7 @@
     "type": "library",
     "require": {
         "symfony/messenger": "^7.3",
-        "symfony/amqp-messenger": "^7.3",
-        "symfony/config": "^7.3",
-        "symfony/dependency-injection": "^7.3"
+        "symfony/amqp-messenger": "^7.3"
     },
     "autoload": {
         "psr-4": {

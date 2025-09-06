@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Vehis\Msc\Publisher\:
+    resource: '../../Publisher/'
+
+  Vehis\Msc\Publisher\MessagePublisher:
+    arguments:
+      $serviceName: '%msc.service_name%'
+      # $topics: '%msc.topics%'
