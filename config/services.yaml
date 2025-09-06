@@ -9,5 +9,5 @@ services:
 
   Vehis\Msc\Publisher\MessagePublisher:
     arguments:
-      $serviceName: '%msc.service_name%'
+      $publisherName: '%msc.publisher_name%'
       # $topics: '%msc.topics%'
