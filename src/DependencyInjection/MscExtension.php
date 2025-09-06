@@ -28,11 +28,10 @@ class MscExtension extends Extension implements PrependExtensionInterface
 
     public function prepend(ContainerBuilder $container): void
     {
-        if (!$container->hasParameter('msc.queue')) {
-            return;
-        }
-
-        $queues = $container->getParameter('msc.queue');
+        $configs = $container->getExtensionConfig('msc');
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+        $queues = $config['queue'] ?? [];
 
         if (empty($queues)) {
             return;
@@ -87,7 +86,6 @@ class MscExtension extends Extension implements PrependExtensionInterface
             );
         }
 
-        error_log(json_encode($messengerConfig));
         return $messengerConfig;
     }
 
