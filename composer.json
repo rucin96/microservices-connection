@@ -19,5 +19,10 @@
             "email": "mrucinski@vehis.pl"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+      "branch-alias": {
+        "dev-main": "1.0-dev"
+      }
+    }
 }
