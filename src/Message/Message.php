@@ -20,4 +20,9 @@ abstract class Message
     {
         return null;
     }
+
+    public function hasRoutingKey(): bool
+    {
+        return $this->getRoutingKey() !== null;
+    }
 }

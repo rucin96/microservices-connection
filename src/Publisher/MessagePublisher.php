@@ -27,8 +27,9 @@ final readonly class MessagePublisher
     public function publish(Message $message): void
     {
         try {
-            $routingKey = $this->routingKeyGenerator->decorateKey($message->getRoutingKey())
-                ?? $this->routingKeyGenerator->generateKey($message::class);
+            $routingKey = $message->hasRoutingKey()
+                ? $this->routingKeyGenerator->decorateKey($message->getRoutingKey())
+                : $this->routingKeyGenerator->generateKey($message::class);
         } catch (CannotGenerateRoutingKeyException $e) {
             throw new PublishingMessageFailed('Unable to get the routing key for requested event', previous: $e);
         }
