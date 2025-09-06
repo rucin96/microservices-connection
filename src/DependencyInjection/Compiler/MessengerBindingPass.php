@@ -23,22 +23,44 @@ class MessengerBindingPass implements CompilerPassInterface
 
         // Get all framework extension configs
         $frameworkConfigs = $container->getExtensionConfig('framework');
-        $updatedConfigs = [];
 
-        foreach ($frameworkConfigs as $config) {
-            if (isset($config['messenger']['transports'])) {
-                $config = $this->injectBindingKeys($config, $bindingKeys);
-            }
-            $updatedConfigs[] = $config;
+        if (empty($frameworkConfigs)) {
+            return;
         }
 
-        // Replace the extension config
-        $container->prependExtensionConfig('framework', $updatedConfigs);
+        // Find messenger configuration and inject binding keys
+        $messengerConfig = $this->extractMessengerConfig($frameworkConfigs);
+
+        if (empty($messengerConfig)) {
+            return;
+        }
+
+        $updatedMessengerConfig = $this->injectBindingKeys($messengerConfig, $bindingKeys);
+
+        // Prepend only the messenger configuration
+        $container->prependExtensionConfig('framework', [
+            'messenger' => $updatedMessengerConfig
+        ]);
     }
 
-    private function injectBindingKeys(array $config, array $bindingKeys): array
+    private function extractMessengerConfig(array $frameworkConfigs): array
     {
-        foreach ($config['messenger']['transports'] as $transportName => &$transport) {
+        foreach ($frameworkConfigs as $config) {
+            if (isset($config['messenger'])) {
+                return $config['messenger'];
+            }
+        }
+
+        return [];
+    }
+
+    private function injectBindingKeys(array $messengerConfig, array $bindingKeys): array
+    {
+        if (!isset($messengerConfig['transports'])) {
+            return $messengerConfig;
+        }
+
+        foreach ($messengerConfig['transports'] as $transportName => &$transport) {
             // Only process AMQP/RabbitMQ transports
             if (!$this->isAmqpTransport($transport)) {
                 continue;
@@ -51,11 +73,11 @@ class MessengerBindingPass implements CompilerPassInterface
             foreach ($transport['options']['queues'] as $queueName => &$queue) {
                 // Merge MSC binding keys with existing ones
                 $existingKeys = $queue['binding_keys'] ?? [];
-                $queue['binding_keys'] = array_unique(array_merge($existingKeys, $bindingKeys));
+                $queue['binding_keys'] = array_unique(array_merge($bindingKeys, $existingKeys));
             }
         }
 
-        return $config;
+        return $messengerConfig;
     }
 
     private function isAmqpTransport(array $transport): bool
