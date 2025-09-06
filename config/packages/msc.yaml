@@ -1,10 +1,9 @@
 msc:
   # Service name will be added to each message as it prefix
-  service_name: '%env(MSC_NAME)%'
-  # Put topics that you are interested in,
-  # For ex.
-  #
-  # binding_keys:
-  #     - 'orders.*'
-  #     - 'payments.*'
-  binding_keys:
+  publisher_name: '%env(MSC_NAME)%'
+  # Put topics that you are interested in, keep symfony messenger style.
+  # Example:
+  #  queue:
+  #    app_queue:
+  #      binding_keys: ['orders.*']
+  queue:
