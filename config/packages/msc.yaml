@@ -1,7 +1,8 @@
 msc:
-  # Service name will be added to each message as it prefix
-  publisher_name: '%env(MSC_NAME)%'
-  # Put topics that you are interested in, keep symfony messenger style.
+  # Service name will be added to each message as its prefix
+  publisher_name: '%env(MSC_PUBLISHER_NAME)%'
+
+  # Define the project queue which be used to listen for events from all other services.
   # Example:
   #  queue:
   #    app_queue:
