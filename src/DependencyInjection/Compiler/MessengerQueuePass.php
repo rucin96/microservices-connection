@@ -11,11 +11,11 @@ class MessengerQueuePass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasParameter('msc.queues')) {
+        if (!$container->hasParameter('msc.queue')) {
             return;
         }
 
-        $queues = $container->getParameter('msc.queues');
+        $queues = $container->getParameter('msc.queue');
 
         if (empty($queues)) {
             return;
