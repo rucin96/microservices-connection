@@ -17,7 +17,7 @@ class MscExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         // Set parameters for use in services
-        $container->setParameter('msc.service_name', $config['service_name']);
+        $container->setParameter('msc.publisher_name', $config['publisher_name']);
         $container->setParameter('msc.topics', $config['topics']);
 
         // Load services

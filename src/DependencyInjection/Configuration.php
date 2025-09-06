@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('service_name')
+            ->scalarNode('publisher_name')
             ->defaultValue('%env(MSC_NAME)%')
             ->info('Service name will be added to each message as it prefix')
             ->end()
