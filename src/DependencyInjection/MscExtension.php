@@ -21,7 +21,7 @@ class MscExtension extends Extension
         $container->setParameter('msc.topics', $config['topics']);
 
         // Load services
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
     }
 
