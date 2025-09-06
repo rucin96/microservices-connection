@@ -4,12 +4,12 @@ services:
     autoconfigure: true
     public: false
 
-  Vehis\Msc\Generator\:
+  Vehis\MsC\Generator\:
     resource: '../../Generator/'
 
-  Vehis\Msc\Publisher\:
+  Vehis\MsC\Publisher\:
     resource: '../../Publisher/'
 
-  Vehis\Msc\Generator\RoutingKeyGenerator:
+  Vehis\MsC\Generator\RoutingKeyGenerator:
     arguments:
       $publisherName: '%msc.publisher_name%'

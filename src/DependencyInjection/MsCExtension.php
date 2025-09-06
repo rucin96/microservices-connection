@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vehis\Msc\DependencyInjection;
+namespace Vehis\MsC\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class MscExtension extends Extension implements PrependExtensionInterface
+class MsCExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {

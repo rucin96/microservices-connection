@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Vehis\\Msc\\": "src/"
+            "Vehis\\MsC\\": "src/"
         }
     },
     "authors": [

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Vehis\MsC\Exception;
 
-class CannotGenerateRoutingKeyException extends MsCException
+use Exception;
+
+abstract class MsCException extends Exception
 {
 }

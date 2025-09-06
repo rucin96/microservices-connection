@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Vehis\Msc\Generator;
+namespace Vehis\MsC\Generator;
 
 use ReflectionClass;
 use ReflectionException;
-use Vehis\Msc\Exception\CannotGenerateRoutingKeyException;
+use Vehis\MsC\Exception\CannotGenerateRoutingKeyException;
 
 readonly class RoutingKeyGenerator
 {

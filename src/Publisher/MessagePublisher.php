@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Vehis\Msc\Publisher;
+namespace Vehis\MsC\Publisher;
 
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Vehis\Msc\Exception\CannotGenerateRoutingKeyException;
-use Vehis\Msc\Exception\PublishingMessageFailed;
-use Vehis\Msc\Generator\RoutingKeyGenerator;
-use Vehis\Msc\Message\Message;
+use Vehis\MsC\Exception\CannotGenerateRoutingKeyException;
+use Vehis\MsC\Exception\PublishingMessageFailed;
+use Vehis\MsC\Generator\RoutingKeyGenerator;
+use Vehis\MsC\Message\Message;
 
 final readonly class MessagePublisher
 {

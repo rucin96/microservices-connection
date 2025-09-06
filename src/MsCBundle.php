@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Vehis\Msc;
+namespace Vehis\MsC;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Vehis\Msc\DependencyInjection\MscExtension;
+use Vehis\MsC\DependencyInjection\MsCExtension;
 
-class MscBundle extends Bundle
+class MsCBundle extends Bundle
 {
     public function getContainerExtension(): ?ExtensionInterface
     {
         if (null === $this->extension) {
-            $this->extension = new MscExtension();
+            $this->extension = new MsCExtension();
         }
 
         return $this->extension;
