@@ -23,8 +23,12 @@ readonly class RoutingKeyGenerator
      */
     public function generateKey(string $className): RoutingKey
     {
+        if (empty($className)) {
+            throw new CannotGenerateRoutingKeyException('className parameter cannot be null');
+        }
+
         try {
-            $shortName = new ReflectionClass($className)->getShortName();
+            $shortName = (new ReflectionClass($className))->getShortName();
         } catch (ReflectionException $e) {
             throw new CannotGenerateRoutingKeyException(previous: $e);
         }
@@ -41,6 +45,10 @@ readonly class RoutingKeyGenerator
      */
     public function decorateKey(string $key): RoutingKey
     {
+        if (empty($key)) {
+            throw new InvalidRoutingKeyProvided($key);
+        }
+
         return new RoutingKey(sprintf('%s.%s', $this->publisherName, $key));
     }
 }

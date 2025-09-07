@@ -14,7 +14,7 @@ class RoutingKey
     public function __construct(
         public string $key
     ) {
-        if (false === preg_match('/^[a-z]+(\.[a-z0-9]+)+$/', $this->key)) {
+        if (false === (bool) preg_match('/^[a-z]+(\.[a-z0-9]+)+$/', $this->key)) {
             throw new InvalidRoutingKeyProvided($this->key);
         }
     }
