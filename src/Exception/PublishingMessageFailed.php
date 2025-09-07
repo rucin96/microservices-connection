@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Vehis\Msc\Exception;
 
-class PublishingMessageFailed extends MscException
+final class PublishingMessageFailed extends MscException
 {
+    /**
+     * @var string[]
+     */
+    public array $stoppedRoutingKeys;
 }
