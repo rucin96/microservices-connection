@@ -12,12 +12,14 @@ use Vehis\Msc\Collection\PackageCollection;
 use Vehis\Msc\Exception\CannotGenerateRoutingKeyException;
 use Vehis\Msc\Exception\DispatchMessagesStoppedException;
 use Vehis\Msc\Exception\InvalidRoutingKeyProvided;
+use Vehis\Msc\Exception\MessageIsNoLongerSupportedException;
 use Vehis\Msc\Exception\PublishingMessageFailed;
 use Vehis\Msc\Exception\DispatchMessageStoppedException;
 use Vehis\Msc\Generator\RoutingKeyGenerator;
 use Vehis\Msc\Message\BackwardCompatibleInterface;
 use Vehis\Msc\Message\Message;
 use Vehis\Msc\Message\Package;
+use Vehis\Msc\Message\Validator\MessageSupportedValidator;
 use Vehis\Msc\Publisher\MessagePublisherInterface;
 use Vehis\Msc\VO\RoutingKey;
 
@@ -26,6 +28,7 @@ final readonly class AmqpMessagePublisher implements MessagePublisherInterface
     public function __construct(
         private MessageBusInterface $bus,
         private RoutingKeyGenerator $routingKeyGenerator,
+        private MessageSupportedValidator $supportedValidator,
     ) {
     }
 
@@ -36,10 +39,18 @@ final readonly class AmqpMessagePublisher implements MessagePublisherInterface
     {
         $packages = new PackageCollection();
 
-        $packages->add($this->preparePackage($message));
+        try {
+            $packages->add($this->preparePackage($message));
+        } catch (MessageIsNoLongerSupportedException $e) {
+            throw new PublishingMessageFailed('Publisher was unable to prepare package', previous: $e);
+        }
 
         if ($message instanceof BackwardCompatibleInterface) {
-            $packages->add($this->preparePackage($message->getPreviousVersion()));
+            try {
+                $packages->add($this->preparePackage($message->getPreviousVersion()));
+            } catch (MessageIsNoLongerSupportedException $e) {
+                throw new PublishingMessageFailed('Publisher was unable to prepare backward compatible package', previous: $e);
+            }
         }
 
         try {
@@ -65,10 +76,15 @@ final readonly class AmqpMessagePublisher implements MessagePublisherInterface
 
     /**
      * @throws PublishingMessageFailed
+     * @throws MessageIsNoLongerSupportedException
      */
     private function preparePackage(Message $message): Package
     {
         $routingKey = $this->getRoutingKey($message);
+
+        if (false === $this->supportedValidator->validate($message)) {
+            throw new MessageIsNoLongerSupportedException($message);
+        }
 
         return new Package($message, $routingKey);
     }

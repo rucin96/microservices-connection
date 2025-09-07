@@ -7,6 +7,9 @@ services:
   Vehis\Msc\Generator\:
     resource: '../../Generator/'
 
+  Vehis\Msc\Message\Validator\:
+    resource: '../../Message/Validator/'
+
   Vehis\Msc\Publisher\:
     resource: '../../Publisher/'
 
