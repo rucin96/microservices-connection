@@ -6,7 +6,7 @@ namespace Vehis\Msc\Message;
 
 use DateTimeImmutable;
 
-abstract class Message
+abstract readonly class Message
 {
     public function supportedTo(): ?DateTimeImmutable
     {
