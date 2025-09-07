@@ -10,6 +10,9 @@ services:
   Vehis\Msc\Publisher\:
     resource: '../../Publisher/'
 
+  Vehis\Msc\Publisher\Amqp\AmqpMessagePublisher: ~
+  Vehis\Msc\Publisher\MessagePublisherInterface: '@Vehis\Msc\Publisher\Amqp\AmqpMessagePublisher'
+
   Vehis\Msc\Generator\RoutingKeyGenerator:
     arguments:
       $publisherName: '%msc.publisher_name%'

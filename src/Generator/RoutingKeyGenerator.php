@@ -7,6 +7,8 @@ namespace Vehis\Msc\Generator;
 use ReflectionClass;
 use ReflectionException;
 use Vehis\Msc\Exception\CannotGenerateRoutingKeyException;
+use Vehis\Msc\Exception\InvalidRoutingKeyProvided;
+use Vehis\Msc\VO\RoutingKey;
 
 readonly class RoutingKeyGenerator
 {
@@ -17,11 +19,12 @@ readonly class RoutingKeyGenerator
 
     /**
      * @throws CannotGenerateRoutingKeyException
+     * @throws InvalidRoutingKeyProvided
      */
-    public function generateKey(string $className): string
+    public function generateKey(string $className): RoutingKey
     {
         try {
-            $shortName = (new ReflectionClass($className))->getShortName();
+            $shortName = new ReflectionClass($className)->getShortName();
         } catch (ReflectionException $e) {
             throw new CannotGenerateRoutingKeyException(previous: $e);
         }
@@ -33,8 +36,11 @@ readonly class RoutingKeyGenerator
         return $this->decorateKey($key);
     }
 
-    public function decorateKey(string $key): string
+    /**
+     * @throws InvalidRoutingKeyProvided
+     */
+    public function decorateKey(string $key): RoutingKey
     {
-        return sprintf('%s.%s', $this->publisherName, $key);
+        return new RoutingKey(sprintf('%s.%s', $this->publisherName, $key));
     }
 }
