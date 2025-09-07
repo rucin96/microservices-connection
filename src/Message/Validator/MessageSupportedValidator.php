@@ -18,6 +18,6 @@ class MessageSupportedValidator implements ValidatorInterface
             return true;
         }
 
-        return $now >= $validTo;
+        return $now <= $validTo;
     }
 }
