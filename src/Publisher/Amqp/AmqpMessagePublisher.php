@@ -80,11 +80,11 @@ final readonly class AmqpMessagePublisher implements MessagePublisherInterface
      */
     private function preparePackage(Message $message): Package
     {
-        $routingKey = $this->getRoutingKey($message);
-
         if (false === $this->supportedValidator->validate($message)) {
             throw new MessageIsNoLongerSupportedException($message);
         }
+
+        $routingKey = $this->getRoutingKey($message);
 
         return new Package($message, $routingKey);
     }
