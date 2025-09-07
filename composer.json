@@ -2,7 +2,9 @@
     "name": "rucin96/microservices-connection",
     "description": "Asynchronous communication package for microservices",
     "type": "library",
+    "version": "1.0.0",
     "require": {
+        "php": ">=8.2",
         "symfony/messenger": "^7.3",
         "symfony/amqp-messenger": "^7.3"
     },
@@ -17,10 +19,5 @@
             "email": "mrucinski@vehis.pl"
         }
     ],
-    "minimum-stability": "stable",
-    "extra": {
-      "branch-alias": {
-        "dev-main": "1.0-dev"
-      }
-    }
+    "minimum-stability": "stable"
 }
